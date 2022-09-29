@@ -39,8 +39,8 @@ def main_page():
 
 
         line_chart = alt.Chart(dataset).mark_line().encode(
-            x=alt.X("Date:T",scale=alt.Scale(domain=list(filter))),
-
+            x=alt.X("month(Date):T"),
+                    # scale=alt.Scale(domain=list(filter))),
             # x=alt.X("Date:T",scale=alt.Scale(domain=(str(year),str(int(year)+1 )))),
             y=alt.Y("rel"),
 
