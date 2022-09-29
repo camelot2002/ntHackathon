@@ -11,7 +11,7 @@ Team Members:
 
 The problem statement has been implemented in Python and locally hosted on streamlit. 
 
-Prerequisite libraries : pandas, streamlit, numpy, glob, os, altair. To dowload the libraries use pip install "library_name" . 
+Prerequisite libraries : pandas, streamlit, numpy, glob, os, altair. To dowload the libraries use pip install "library_name". 
 
 Steps to run the code: 
 
