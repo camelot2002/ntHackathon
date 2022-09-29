@@ -7,7 +7,8 @@ import streamlit as st
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 
-df1 = pd.read_csv(r"dataset.csv")
+df1 = pd.read_csv("dataset.csv")
+w=pd.read_csv("weekly.csv")
 
 def main_page():
     st.markdown("Exchange Rates")
@@ -15,7 +16,7 @@ def main_page():
 
     choice_options = df1.columns[1:]
     time_options = [ "Weekly","Monthly", "Quarterly"]
-    year1 = ["2012", "2013", "2014"]
+    year1 = range(2012,2023)
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -55,13 +56,14 @@ def main_page():
         pass
 
     if frequency == "Monthly":
-        filter = pd.date_range(start='{}-01-01'.format(year2), end='{}-12-01'.format(year2), freq='D')
+        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='D')
         with st.container():
             plot(choice, filter)
     elif frequency == "Weekly":
-        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='W')
+        filter = pd.date_range(start='01-01-{}'.format(year2), end='01-12-{}'.format(year2), freq='W')
         with st.container():
             plot(choice, filter)
+
     elif frequency == "Quarterly":
         filter = ('01-01-{}'.format(year2), '04-01-{}'.format(year2),'08-01-{}'.format(year2),'12-01-{}'.format(year2) )
         with st.container():
@@ -96,14 +98,12 @@ def page2():
 
     st.sidebar.markdown("Currency Convertor️")
 
-def page3():
-    st.markdown("Relative Currency")
-    st.sidebar.markdown("Relative Currency")
+
 
 page_names_to_funcs = {
     "Exchange Rates": main_page,
     "Currency Convertor": page2,
-    "Relative Currency": page3,
+
 }
 
 selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
