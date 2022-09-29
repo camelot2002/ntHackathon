@@ -39,26 +39,32 @@ def main_page():
 
 
         line_chart = alt.Chart(dataset).mark_line().encode(
-            x=alt.X("Date:N",scale=alt.Scale(domain=list(filter))),
+            x=alt.X("Date:T",scale=alt.Scale(domain=list(filter))),
 
             # x=alt.X("Date:T",scale=alt.Scale(domain=(str(year),str(int(year)+1 )))),
-            y=alt.Y("rel:T"),
+            y=alt.Y("rel:Q"),
 
 
         ).interactive(bind_y = False)
+        alt.Chart(dataset).mark_line().encode(
+            x='Date',
+            y='rel',
+            color='symbol',
+            shape=alt.Shape('symbol', scale=alt.Scale(range=['cross', 'circle', 'square', 'triangle-right', 'diamond']))
+        )
         st.altair_chart(line_chart,use_container_width=True)
         pass
 
     if frequency == "Monthly":
-        filter = pd.date_range(start='{}-01-01'.format(year2), end='{}-12-01'.format(year2), freq='D')
+        filter = pd.date_range(start='{}-01-01'.format(year2), end='{}-12-01'.format(year2), freq='W')
         with st.container():
             plot(choice, filter)
     elif frequency == "Weekly":
-        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='W')
+        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='H')
         with st.container():
             plot(choice, filter)
     elif frequency == "Quarterly":
-        filter = ('01-01-{}'.format(year2), '04-01-{}'.format(year2),'08-01-{}'.format(year2),'12-01-{}'.format(year2) )
+        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='5MS')
         with st.container():
             plot(choice, filter)
 
