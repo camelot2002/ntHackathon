@@ -15,7 +15,7 @@ def main_page():
 
 
     choice_options = df1.columns[1:]
-    time_options = [ "Monthly","Weekly", "Quarterly"]
+    time_options = [ "Monthly","Quarterly", "Weekly"]
     year1 = range(2012,2023)
 
     col1, col2, col3, col4 = st.columns(4)
