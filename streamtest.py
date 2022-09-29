@@ -13,17 +13,16 @@ def main_page():
     st.markdown("Exchange Rates")
 
 
-
     choice_options = df1.columns[1:]
     time_options = [ "Weekly","Monthly", "Quarterly"]
-    year1 = range(2012,2023)
+    year1 = ["2012", "2013", "2014"]
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         choice=st.selectbox("Default Currency", choice_options)
 
     with col2:
-        choice2 = st.selectbox("Select the Currency", choice_options)
+        choice2 = st.selectbox("Select the Country value", choice_options)
     with col3:
         frequency = st.selectbox("Select the time range", time_options)
     with col4:
@@ -34,6 +33,12 @@ def main_page():
         dataset = pd.DataFrame(df1)
         # df1['year']=year(df1['Date'])
         dataset["rel"]=dataset[choice2]/dataset[choice]
+        a=dataset.loc[dataset[choice2].idxmax()]
+        b = dataset.loc[dataset[choice2].idxmin()]
+        st.write("MAX")
+        st.write(a["rel"])
+        st.write("MIN")
+        st.write(b["rel"])
 
 
 
@@ -45,26 +50,20 @@ def main_page():
             y=alt.Y("rel"),
 
 
-        ).interactive(bind_y = False)
-        alt.Chart(dataset).mark_line().encode(
-            x='Date',
-            y='rel',
-            color='symbol',
-            shape=alt.Shape('symbol', scale=alt.Scale(range=['cross', 'circle', 'square', 'triangle-right', 'diamond']))
-        )
+        ).interactive()
         st.altair_chart(line_chart,use_container_width=True)
         pass
 
     if frequency == "Monthly":
-        filter = pd.date_range(start='{}-01-01'.format(year2), end='{}-12-01'.format(year2), freq='W')
+        filter = pd.date_range(start='{}-01-01'.format(year2), end='{}-12-01'.format(year2), freq='D')
         with st.container():
             plot(choice, filter)
     elif frequency == "Weekly":
-        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='H')
+        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='W')
         with st.container():
             plot(choice, filter)
     elif frequency == "Quarterly":
-        filter = pd.date_range(start='01-01-{}'.format(year2), end='30-12-{}'.format(year2), freq='5MS')
+        filter = ('01-01-{}'.format(year2), '04-01-{}'.format(year2),'08-01-{}'.format(year2),'12-01-{}'.format(year2) )
         with st.container():
             plot(choice, filter)
 
