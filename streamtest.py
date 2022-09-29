@@ -13,6 +13,7 @@ def main_page():
     st.markdown("Exchange Rates")
 
 
+
     choice_options = df1.columns[1:]
     time_options = [ "Weekly","Monthly", "Quarterly"]
     year1 = range(2012,2023)
@@ -22,7 +23,7 @@ def main_page():
         choice=st.selectbox("Default Currency", choice_options)
 
     with col2:
-        choice2 = st.selectbox("Select the Country value", choice_options)
+        choice2 = st.selectbox("Select the Currency", choice_options)
     with col3:
         frequency = st.selectbox("Select the time range", time_options)
     with col4:
