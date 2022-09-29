@@ -1,11 +1,7 @@
 import numpy as np
 import pandas as pd
-import glob
-import os
 import altair as alt
 import streamlit as st
-from sklearn.impute import SimpleImputer
-import matplotlib.pyplot as plt
 
 df1 = pd.read_csv("dataset.csv")
 w=pd.read_csv("weekly.csv")
