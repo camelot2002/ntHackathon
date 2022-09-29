@@ -7,7 +7,7 @@ import streamlit as st
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 
-df1 = pd.read_csv(r"C:\Users\comp\PycharmProjects\pythonProject3\csv\dataset.csv")
+df1 = pd.read_csv(r"dataset.csv")
 
 def main_page():
     st.markdown("Exchange Rates")
