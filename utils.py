@@ -23,6 +23,8 @@ def preprocessing():
     df = df.set_index('Date')
     df.to_csv('dataset.csv')
     fill_missing(df)
+    df.iloc[::5, :].to_csv('weekly.csv')
+    df.iloc[::62, :].to_csv('quarterly.csv')
 
 
 if __name__ == "__main__":
